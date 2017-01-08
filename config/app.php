@@ -178,6 +178,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        //Yajra laravel-datatables Service Provider
+        Yajra\Datatables\DatatablesServiceProvider::class,
 
     ],
 
@@ -228,6 +230,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Illuminate\Html\FormFacade::class,
         'Form' => Illuminate\Html\HtmlFacade::class,
+        //Yajra Facade
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
 
     ],
 

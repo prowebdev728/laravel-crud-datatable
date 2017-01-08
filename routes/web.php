@@ -42,3 +42,12 @@ Route::get('/register', function(){
 	return view('register');
 });
 Route::post('/user/register', array('uses'=>'UserRegistration@postRegister'));
+
+//Datatable1 Route
+Route::group(['prefix' => 'datatable1'], function (){
+	Route::get('/', 'Datatable1Controller@index');
+	Route::get('/get', 'Datatable1Controller@getDatas');
+	Route::post('/store', 'Datatable1Controller@store');
+	Route::post('/update/{id}', 'Datatable1Controller@update');
+	Route::post('/destroy/{id}', 'Datatable1Controller@destroy');
+});
