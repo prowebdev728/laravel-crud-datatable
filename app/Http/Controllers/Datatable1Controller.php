@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Datatable1Model;
 use Illuminate\Http\Request;
-// use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Facades\Datatables;
@@ -24,12 +23,12 @@ class Datatable1Controller extends Controller
     //
     public function getDatas() {
         /*$datas = Datatable1Model::orderBy('id', 'DESC')->get();
-        return Datatables::collection($datas)->make(true);*/
+        return Datatables::collection($datas)->make(true);
 
-        /*$datas = Datatable1Model::select(['id', 'name', 'sex', 'age', 'email']);
-        return Datatables::of($datas)->make();*/
+        $datas = Datatable1Model::select(['id', 'name', 'sex', 'age', 'email']);
+        return Datatables::of($datas)->make();
 
-        /*$datas = Datatable1Model::orderBy('name')->get();
+        $datas = Datatable1Model::orderBy('name')->get();
         $i = 0;
         foreach ($datas as $data) {
             $data['no'] = ++$i;
@@ -65,7 +64,7 @@ class Datatable1Controller extends Controller
         $email = $request->input('email');
 
         if ($name == '' && $sex == '' && $age == '' && $email == '') {
-            echo 'field empty'; exit;
+            echo "field empty"; exit;
         }
 
         //store
@@ -75,12 +74,13 @@ class Datatable1Controller extends Controller
         $user->sex = $request->input('sex');
         $user->age = $request->input('age');
         $user->email = $request->input('email');
+
         //get disporder
         /*$row = Datatable1Model::select(DB::raw('COUNT(id) AS cnt'))->get();
-        var_dump($row[0]['cnt']);exit;*/
+        var_dump($row[0]['cnt']); exit;*/
         $count = Datatable1Model::count();
-        $user->disporder = $count+1;
-        
+        $user->disporder = $count + 1;
+
         $user->save();
 
         echo 'success'; exit;
@@ -156,10 +156,15 @@ class Datatable1Controller extends Controller
      */
     public function destroy($id)
     {
-        //
+
         $user = Datatable1Model::find($id);
 
-        $user->delete();
+        $disporder = $user->disporder;
+        //process disporder
+        $sql = "UPDATE users SET disporder=disporder-1 WHERE disporder >= {$disporder}";
+        DB::statement($sql);
+
+        $user->delete();        
 
         echo 'success'; exit;
     }

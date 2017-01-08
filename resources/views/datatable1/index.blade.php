@@ -86,13 +86,17 @@
 					name: 'delete'      // do not change name
 				}],
 				"initComplete": function(settings, json) {
+					
 					$('.dt-button').on('click', function(event) {
 
-						//Set the display attribute of Id and No item
+						//Set the display attribute of Id and No field in the altEditor-modal Window
 						var btnName = $(this).text();
+
 						$('#altEditor-modal #Id, #altEditor-modal #No').parent().parent().css('display', 'block');
+
 						if (btnName == 'Add')
 							$('#altEditor-modal #Id, #altEditor-modal #No').parent().parent().css('display', 'none');
+
 						if (btnName == 'Edit')
 							$('#altEditor-modal #Id').parent().parent().css('display', 'none');
 
@@ -100,16 +104,21 @@
 						$('#altEditor-modal #addRowBtn').on('click', function(event) {
 							/*event.stopPropagation();
 							event.preventDefault();*/
+
 							//Save row added
 							addRow();
 						});
+
 						//Click Event of Save Changes Button
 						$('#altEditor-modal #editRowBtn').on('click', function(event) {
+
 							//Update row edited
 							editRow();
 						});
+
 						//Click Event of Delete Button
 						$('#altEditor-modal #deleteRowBtn').on('click', function(event) {
+
 							//Delete row selected
 							deleteRow();
 						});
@@ -119,6 +128,7 @@
 			});
 
 		});
+
 		//Save row added
 		function addRow() {
 
@@ -137,26 +147,26 @@
 					if (result == 'success') {
 						myTable.ajax.reload();
 					} else if (result == 'field empty') {
-						$("#altEditor-modal div.alert").attr('class', 'alert alert-warning').text('You should enter fields correctly.');
+						$('#altEditor-modal div.alert').attr('class', 'alert alert-warning').text('You should enter fields correctly.');
 					} else {
-						alert('save error!');
+						alert('Save Error!');
 					}
-
-				} 
+				}
 			});
 		}
+
 		//Update row edited
 		function editRow() {
-
 			var id = $('#altEditor-modal #Id').val();
+			var o_no = $('#user-table tr.selected td:eq(1)').text();
+			var no = $('#altEditor-modal #No').val();
 			$.ajax({
 				type: 'POST',
-				url: '{!! url('datatable1/update/') !!}'+'/'+id,
+				url: '{!! url('datatable1/update') !!}' + '/' + id,
 				data: {
 					_token: $("[name='_token']").val(),
-					// id: $('#altEditor-modal #Id').val(),
-					o_no: $('#user-table tr.selected td:eq(1)').text(),
-					no: $('#altEditor-modal #No').val(),
+					o_no: o_no,
+					no: no,
 					name: $('#altEditor-modal #Name').val(),
 					sex: $('#altEditor-modal #Sex').val(),
 					age: $('#altEditor-modal #Age').val(),
@@ -165,22 +175,24 @@
 				success: function(result) {
 
 					if (result == 'success') {
-						myTable.ajax.reload();
-					} else if (result == 'field empty') {
+						if (o_no != no)
+							myTable.ajax.reload();
+					} else if(result == 'field empty') {
 						$("#altEditor-modal div.alert").attr('class', 'alert alert-warning').text('You should enter fields correctly.');
 					} else {
-						alert('update error!');
+						alert('Update Error!');
 					}
-				} 
+				}
 			});
 		}
+
 		//Delete row selected
 		function deleteRow() {
 
 			var id = $('#altEditor-modal #Id').val();
 			$.ajax({
 				type: 'POST',
-				url: '{!! url('datatable1/destroy/') !!}'+'/'+id,
+				url: '{!! url('datatable1/destroy') !!}' + '/' + id,
 				data: {
 					_token: $("[name='_token']").val(),
 				},
@@ -189,15 +201,18 @@
 					if (result == 'success') {
 						myTable.ajax.reload();
 					} else {
-						alert('delete error!');
+						alert('Delete Error!');
 					}
-				} 
+				}
 			});
 		}
+
 	</script>
 </head>
 <body>
+
 	{{csrf_field()}}
+
 	<div class="container">
 		<br>
 		<table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-striped" id="user-table">
@@ -205,7 +220,6 @@
 		</table>
 		<br>
 	</div>
-
 
 </body>
 </html>
