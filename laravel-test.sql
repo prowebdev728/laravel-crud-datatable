@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2017 at 01:08 PM
+-- Generation Time: Jan 09, 2017 at 04:50 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `laravel-test`
 --
+CREATE DATABASE IF NOT EXISTS `laravel-test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `laravel-test`;
 
 -- --------------------------------------------------------
 
@@ -26,55 +28,37 @@ SET time_zone = "+00:00";
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `sex` varchar(10) DEFAULT NULL,
-  `age` char(2) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `disporder` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `sex` varchar(255) NOT NULL,
+  `age` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `disporder` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `sex`, `age`, `email`, `disporder`) VALUES
-(1, 'anton', 'male', '0', 'abc@abc.com', 4),
-(2, 'johnson', 'male', '0', 'b@b.com', 5),
-(6, 'david', 'male', '26', 'david@hotmail.com', 1),
-(7, 'anna', 'femail', '20', 'a@a.com', 2),
-(8, 'tom', 'male', '22', 'c@c.com', 6),
-(9, 'joana', 'female', '21', 'abc@a.com', 8),
-(10, 'john', 'male', '25', 'as@as.com', 7),
-(12, 'a', 'a', 'a', 'a', 9),
-(14, 'b', '', '', '', 10),
-(15, 'c', '', '', '', 11),
-(16, 'd', 'male', '26', '', 12),
-(17, 'e', '', '', '', 13),
-(18, 'f', '', '', '', 14),
-(19, 'g', '', '', '', 15),
-(20, 'thomas', '', '', '', 3);
+(1, 'anton', 'male', '28', 'anton@outlook.com', 7),
+(2, 'johnson', 'male', '0', 'b@b.com', 8),
+(6, 'david', 'male', '26', 'david@hotmail.com', 3),
+(7, 'anna', 'femail', '20', 'a@a.com', 1),
+(8, 'tom', 'male', '22', 'c@c.com', 4),
+(9, 'joana', 'female', '21', 'abc@a.com', 11),
+(10, 'john', 'male', '25', 'as@as.com', 5),
+(20, 'thomas', '', '', '', 6),
+(23, 'joana', 'female', '22', 'joana@outlook.com', 2),
+(27, 'a', 'female', '20', '', 10),
+(29, 'c', 'male', '20', 'c@mail.com', 12),
+(30, 'd', 'male', '20', 'd@mail.com', 9),
+(33, 'aaa', '', '', '', 14),
+(35, 'bbb', 'dfas', '324', 'fasdf', 13);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

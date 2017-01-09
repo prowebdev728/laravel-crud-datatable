@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-	<title>Datatable Test Page</title>
+	<title>Laravel Datatable Page</title>
 
 	<meta charset="utf-8">
 
@@ -18,7 +18,7 @@
 	<script type="text/javascript" src="/datatableasset/js/dataTables.buttons-1.1.2.min.js"></script>
 	<script type="text/javascript" src="/datatableasset/js/dataTables.select-1.1.2.min.js"></script>
 	<script type="text/javascript" src="/datatableasset/js/dataTables.responsive-2.0.2.min.js"></script>
-
+	<!-- Export Excel, CSV, PDF and Print Buttons -->
 	<script type="text/javascript" src="/datatableasset/js/export/pdfmake-0.1.18.min.js"></script>
 	<script type="text/javascript" src="/datatableasset/js/export/vfs_fonts-0.1.18.js"></script>
 	<script type="text/javascript" src="/datatableasset/js/export/buttons.html5-1.2.4.min.js"></script>
@@ -37,19 +37,6 @@
 
 		$(document).ready(function() {
 
-			/*var columnDefs = [{
-				title: 'Id', data: 'id', name: 'id', className: 'hidden'
-			},{
-				title: 'No', data: 'no', name: 'no'
-			}, {
-				title: 'Name', data: 'name', name: 'name'
-			}, {
-				title: 'Sex', data: 'sex', name: 'sex'
-			}, {
-				title: 'Age', data: 'age', name: 'age'
-			}, {
-				title: 'Email', data: 'email', name: 'email'
-			}];*/
 			var columnDefs = [{
 				title: 'Id', name: 'id', className: 'hidden', searchable: false, orderable: false
 			},{
@@ -109,17 +96,18 @@
 							title: 'DataTable CSV',
 							exportOptions: {
 								columns: ':visible',
-								stripHtml: false		//don't display hidden field
+								stripHtml: false
 							}
 						},{
 							extend: 'pdf',
 							text: 'PDF',
 							title: 'DataTable PDF',
 							message: '',
+							download: 'open',
 							// orientation: 'landscape',
 							exportOptions: {
 								columns: ':visible',
-								stripHtml: false		//don't display hidden field
+								stripHtml: false
 							}
 						},{
 							extend: 'print',
@@ -127,47 +115,11 @@
 							title: '',
 							exportOptions: {
 								columns: ':visible',
-								stripHtml: false		//don't display hidden field
+								stripHtml: false
 							}
 						}
 					]
 				}
-				/*{
-					extend: 'collection',
-					text: 'Export',
-					buttons: [
-						'copy',
-						'excel',
-						'csv',
-						'pdf',
-						'print'
-					]
-				},*/
-				/*{
-					extend: 'pdfHtml5',
-					text: 'PDF',
-					name: 'pdf',
-					download: 'open'
-				},
-				{
-					extend: 'excelHtml5',
-					text: 'Excel',
-					name: 'excel'
-				},
-				{
-					extend: 'csvHtml5',
-					text: 'CSV',
-					name: 'csv'
-				},
-				{
-					extend: 'print',
-					text: 'Print',
-					name: 'print'
-				},*/
-				/*{
-					text: "<a href='{!! url('datatable1/pdfdownload') !!}'><button class='btn btn-info btn-sm pull-right'>PDF</button></a>",
-					name: 'pdf'      // do not change name
-				}*/
 				],
 				"initComplete": function(settings, json) {
 					
@@ -186,23 +138,18 @@
 
 						//Click Event of Add Record Button
 						$('#altEditor-modal #addRowBtn').on('click', function(event) {
-							/*event.stopPropagation();
-							event.preventDefault();*/
-
 							//Save row added
 							addRow();
 						});
 
 						//Click Event of Save Changes Button
 						$('#altEditor-modal #editRowBtn').on('click', function(event) {
-
 							//Update row edited
 							editRow();
 						});
 
 						//Click Event of Delete Button
 						$('#altEditor-modal #deleteRowBtn').on('click', function(event) {
-
 							//Delete row selected
 							deleteRow();
 						});
@@ -221,10 +168,10 @@
 				url: '{!! url('datatable1/store') !!}',
 				data: {
 					_token: $("[name='_token']").val(),
-					name: $('#altEditor-modal #Name').val(),
-					sex: $('#altEditor-modal #Sex').val(),
-					age: $('#altEditor-modal #Age').val(),
-					email: $('#altEditor-modal #Email').val()
+					name: $.trim($('#altEditor-modal #Name').val()),
+					sex: $.trim($('#altEditor-modal #Sex').val()),
+					age: $.trim($('#altEditor-modal #Age').val()),
+					email: $.trim($('#altEditor-modal #Email').val())
 				},
 				success: function(result) {
 
@@ -251,16 +198,15 @@
 					_token: $("[name='_token']").val(),
 					o_no: o_no,
 					no: no,
-					name: $('#altEditor-modal #Name').val(),
-					sex: $('#altEditor-modal #Sex').val(),
-					age: $('#altEditor-modal #Age').val(),
-					email: $('#altEditor-modal #Email').val()
+					name: $.trim($('#altEditor-modal #Name').val()),
+					sex: $.trim($('#altEditor-modal #Sex').val()),
+					age: $.trim($('#altEditor-modal #Age').val()),
+					email: $.trim($('#altEditor-modal #Email').val())
 				},
 				success: function(result) {
 
 					if (result == 'success') {
-						if (o_no != no)
-							myTable.ajax.reload();
+						myTable.ajax.reload();
 					} else if(result == 'field empty') {
 						$("#altEditor-modal div.alert").attr('class', 'alert alert-warning').text('You should enter fields correctly.');
 					} else {
@@ -294,16 +240,11 @@
 	</script>
 </head>
 <body>
-
 	{{csrf_field()}}
-
 	<div class="container">
 		<br>
-		<table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-striped" id="user-table">
-
-		</table>
+		<table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-striped" id="user-table"></table>
 		<br>
 	</div>
-
 </body>
 </html>

@@ -1,0 +1,37 @@
+We would like to implement a table for displaying information from our application. Our current recommendation is https://editor.datatables.net/ however we are happy to consider alternative tools that can provide the same functionality.
+
+• Client read/write via an AJAX API
+• Laravel 5.3 and MySQL backend
+• Search based on data in the row
+• Ability to sort by column
+• Change sequence of rows
+• Save changes to the database
+• Add Button that loads modal form and adds a row to the datatable
+• Edit button that allows all the fields to be modified (can be modal or redirect to a new page)
+• Implement Excel, PDF, Print and CSV buttons (listed in sequence of priority for code implementation)
+• Use a bootstrap base style sheet
+
+Can provide sample data or can be implemented with an example data set and we will migrate it to the multiple pages once the Proof of Concept is successfully completed.
+
+Please spend 10 hours on this, then we will review your progress and determine if we would like to continue.
+
+
+
+1) install xampp-win32-5.6.24-0-VC11-installer.exe to C:\
+2) C:\xampp\htdocs\laravel-datatables
+3) C:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+listen 9000
+<VirtualHost *:9000>
+    DocumentRoot "C:\xampp\htdocs\laravel-datatables\public"
+    ServerAdmin laravel.dev
+    <Directory "C:\xampp\htdocs\laravel-datatables">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+
+4) XAMPP restart
+5) laravel-test.sql
+6) localhost:9000/datatable1

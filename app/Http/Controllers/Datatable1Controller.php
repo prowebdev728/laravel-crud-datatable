@@ -17,23 +17,11 @@ class Datatable1Controller extends Controller
      */
     public function index()
     {
-        //
+        
         return view('datatable1.index');
     }
     //
     public function getDatas() {
-        /*$datas = Datatable1Model::orderBy('id', 'DESC')->get();
-        return Datatables::collection($datas)->make(true);
-
-        $datas = Datatable1Model::select(['id', 'name', 'sex', 'age', 'email']);
-        return Datatables::of($datas)->make();
-
-        $datas = Datatable1Model::orderBy('name')->get();
-        $i = 0;
-        foreach ($datas as $data) {
-            $data['no'] = ++$i;
-        }
-        return Datatables::collection($datas)->make(true);*/
 
         $datas = Datatable1Model::select(['id', 'disporder AS no', 'name', 'sex', 'age', 'email'])->orderBy('disporder', 'ASC');
         return Datatables::of($datas)->make();
@@ -70,14 +58,11 @@ class Datatable1Controller extends Controller
         //store
         $user = new Datatable1Model();
 
-        $user->name = $request->input('name');
-        $user->sex = $request->input('sex');
-        $user->age = $request->input('age');
-        $user->email = $request->input('email');
+        if ($name) $user->name = $name;
+        if ($sex) $user->sex = $sex;
+        if ($age) $user->age = $age;
+        if ($email) $user->email = $email;
 
-        //get disporder
-        /*$row = Datatable1Model::select(DB::raw('COUNT(id) AS cnt'))->get();
-        var_dump($row[0]['cnt']); exit;*/
         $count = Datatable1Model::count();
         $user->disporder = $count + 1;
 
@@ -131,11 +116,11 @@ class Datatable1Controller extends Controller
         //update
         $user = Datatable1Model::find($id);
 
-        $user->name = $name;
-        $user->sex = $sex;
-        $user->age = $age;
-        $user->email = $email;
-        $user->disporder = $disporder;
+        if ($name) $user->name = $name;
+        if ($sex) $user->sex = $sex;
+        if ($age) $user->age = $age;
+        if ($email) $user->email = $email;
+        if ($disporder) $user->disporder = $disporder;
         
         $user->save();
 
@@ -146,7 +131,7 @@ class Datatable1Controller extends Controller
             $sql = "UPDATE users SET disporder=disporder+1 WHERE id != {$id} AND disporder >= {$disporder} AND disporder < {$o_disporder}";
         else if ($o_disporder < $disporder)
             $sql = "UPDATE users SET disporder=disporder-1 WHERE id != {$id} AND disporder <= {$disporder} AND disporder > {$o_disporder}";
-        // $datas = DB::select($sql);
+        
         DB::statement($sql);
 
         echo 'success'; exit;
@@ -172,4 +157,5 @@ class Datatable1Controller extends Controller
 
         echo 'success'; exit;
     }
+
 }
