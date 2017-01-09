@@ -50,4 +50,7 @@ Route::group(['prefix' => 'datatable1'], function () {
 	Route::post('/store', 'Datatable1Controller@store');
 	Route::post('/update/{id}', 'Datatable1Controller@update');
 	Route::post('/destroy/{id}', 'Datatable1Controller@destroy');
+	//PDF
+	// Route::get('/pdfdownload', 'PdfController@download');
+
 });

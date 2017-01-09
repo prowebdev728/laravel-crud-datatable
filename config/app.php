@@ -180,6 +180,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         //Yajra laravel-datatables Service Provider
         Yajra\Datatables\DatatablesServiceProvider::class,
+        //Barryvdh DomPDF Service Provider
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -232,7 +234,9 @@ return [
         'Form' => Illuminate\Html\HtmlFacade::class,
         //Yajra Facade
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
-
+        //Barryvdh DomPDF aliase Facade
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        
     ],
 
 ];

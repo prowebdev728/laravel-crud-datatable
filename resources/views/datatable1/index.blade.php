@@ -19,6 +19,12 @@
 	<script type="text/javascript" src="/datatableasset/js/dataTables.select-1.1.2.min.js"></script>
 	<script type="text/javascript" src="/datatableasset/js/dataTables.responsive-2.0.2.min.js"></script>
 
+	<script type="text/javascript" src="/datatableasset/js/export/pdfmake-0.1.18.min.js"></script>
+	<script type="text/javascript" src="/datatableasset/js/export/vfs_fonts-0.1.18.js"></script>
+	<script type="text/javascript" src="/datatableasset/js/export/buttons.html5-1.2.4.min.js"></script>
+	<script type="text/javascript" src="/datatableasset/js/export/jszip-2.5.0.min.js"></script>
+	<script type="text/javascript" src="/datatableasset/js/export/buttons.print-1.2.4.min.js"></script>
+
 	<style>
 		table.dataTable tbody>tr.selected,
 		table.dataTable tbody>tr>.selected {
@@ -45,7 +51,7 @@
 				title: 'Email', data: 'email', name: 'email'
 			}];*/
 			var columnDefs = [{
-				title: 'Id', name: 'id', className: 'hidden'
+				title: 'Id', name: 'id', className: 'hidden', searchable: false, orderable: false
 			},{
 				title: 'No', name: 'no'
 			}, {
@@ -84,7 +90,85 @@
 					extend: 'selected', // Bind to Selected row
 					text: 'Delete',
 					name: 'delete'      // do not change name
-				}],
+				},
+				{
+					extend: 'collection',
+					text: 'Export',
+					buttons: [
+						{
+							extend: 'excel',
+							text: 'Excel',
+							title: 'DataTable Excel',
+							exportOptions: {
+								columns: ':visible',
+								stripHtml: false		//don't display hidden field
+							}
+						},{
+							extend: 'csv',
+							text: 'CSV',
+							title: 'DataTable CSV',
+							exportOptions: {
+								columns: ':visible',
+								stripHtml: false		//don't display hidden field
+							}
+						},{
+							extend: 'pdf',
+							text: 'PDF',
+							title: 'DataTable PDF',
+							message: '',
+							// orientation: 'landscape',
+							exportOptions: {
+								columns: ':visible',
+								stripHtml: false		//don't display hidden field
+							}
+						},{
+							extend: 'print',
+							text: 'Print',
+							title: '',
+							exportOptions: {
+								columns: ':visible',
+								stripHtml: false		//don't display hidden field
+							}
+						}
+					]
+				}
+				/*{
+					extend: 'collection',
+					text: 'Export',
+					buttons: [
+						'copy',
+						'excel',
+						'csv',
+						'pdf',
+						'print'
+					]
+				},*/
+				/*{
+					extend: 'pdfHtml5',
+					text: 'PDF',
+					name: 'pdf',
+					download: 'open'
+				},
+				{
+					extend: 'excelHtml5',
+					text: 'Excel',
+					name: 'excel'
+				},
+				{
+					extend: 'csvHtml5',
+					text: 'CSV',
+					name: 'csv'
+				},
+				{
+					extend: 'print',
+					text: 'Print',
+					name: 'print'
+				},*/
+				/*{
+					text: "<a href='{!! url('datatable1/pdfdownload') !!}'><button class='btn btn-info btn-sm pull-right'>PDF</button></a>",
+					name: 'pdf'      // do not change name
+				}*/
+				],
 				"initComplete": function(settings, json) {
 					
 					$('.dt-button').on('click', function(event) {

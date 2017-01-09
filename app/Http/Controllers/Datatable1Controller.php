@@ -35,7 +35,7 @@ class Datatable1Controller extends Controller
         }
         return Datatables::collection($datas)->make(true);*/
 
-        $datas = Datatable1Model::select(['id', 'disporder AS no', 'name', 'sex', 'age', 'email']);
+        $datas = Datatable1Model::select(['id', 'disporder AS no', 'name', 'sex', 'age', 'email'])->orderBy('disporder', 'ASC');
         return Datatables::of($datas)->make();
     }
 
@@ -141,7 +141,11 @@ class Datatable1Controller extends Controller
 
         //process disporder
         $o_disporder = $request->input('o_no');
-        $sql = "UPDATE users SET disporder=disporder+1 WHERE id != {$id} AND disporder >= {$disporder} AND disporder < {$o_disporder}";
+        $sql = "";
+        if ($o_disporder > $disporder)
+            $sql = "UPDATE users SET disporder=disporder+1 WHERE id != {$id} AND disporder >= {$disporder} AND disporder < {$o_disporder}";
+        else if ($o_disporder < $disporder)
+            $sql = "UPDATE users SET disporder=disporder-1 WHERE id != {$id} AND disporder <= {$disporder} AND disporder > {$o_disporder}";
         // $datas = DB::select($sql);
         DB::statement($sql);
 
