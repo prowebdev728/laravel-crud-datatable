@@ -182,6 +182,8 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         //Barryvdh DomPDF Service Provider
         Barryvdh\DomPDF\ServiceProvider::class,
+        //Laravel Collective Service Provider
+        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -236,6 +238,9 @@ return [
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         //Barryvdh DomPDF aliase Facade
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        //Laravel Collective
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
         
     ],
 

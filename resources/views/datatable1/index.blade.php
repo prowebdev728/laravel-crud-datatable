@@ -30,6 +30,24 @@
 		table.dataTable tbody>tr>.selected {
 			background-color: #A2D3F6;
 		}
+
+		/*::-webkit-input-placeholder {
+		    color: #999!important;
+		}
+		:-moz-placeholder {
+		    color: #999!important;
+		}
+		::-moz-placeholder {
+		    color: #999!important;
+		}
+		:-ms-input-placeholder {
+		    color: #999!important;
+		}*/
+
+		.help-block {
+			margin: 0px;
+			color: #ef5350;
+		}
 	</style>
 
 	<script>
@@ -138,12 +156,16 @@
 
 						//Click Event of Add Record Button
 						$('#altEditor-modal #addRowBtn').on('click', function(event) {
+							event.stopPropagation();
+							event.preventDefault();
 							//Save row added
 							addRow();
 						});
 
 						//Click Event of Save Changes Button
 						$('#altEditor-modal #editRowBtn').on('click', function(event) {
+							event.stopPropagation();
+							event.preventDefault();
 							//Update row edited
 							editRow();
 						});
@@ -162,7 +184,6 @@
 
 		//Save row added
 		function addRow() {
-
 			$.ajax({
 				type: 'POST',
 				url: '{!! url('datatable1/store') !!}',
@@ -174,14 +195,29 @@
 					email: $.trim($('#altEditor-modal #Email').val())
 				},
 				success: function(result) {
+					$('#altEditor-modal .help-block').remove();
+					$("#altEditor-modal .modal-body .alert").remove();
+					$("#altEditor-modal .modal-body").append('<div class="alert alert-success" role="alert"><strong>Success!</strong> This record has been updated.</div>');
 
 					if (result == 'success') {
 						myTable.ajax.reload();
-					} else if (result == 'field empty') {
-						$('#altEditor-modal div.alert').attr('class', 'alert alert-warning').text('You should enter fields correctly.');
 					} else {
 						alert('Save Error!');
 					}
+				},
+				error: function(jqXhr, json, errorThrown) {
+					$('#altEditor-modal .help-block').remove();
+					$("#altEditor-modal .modal-body .alert").remove();
+					$("#altEditor-modal .modal-body").append('<div class="alert alert-warning" role="alert"><strong>Warning!</strong> You should enter fields correctly.</div>');
+
+					var errors = jqXhr.responseJSON;
+		            $.each( errors, function( key, value ) {
+		            	var inputboxId = key.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+						    return letter.toUpperCase();
+						});
+
+		                $("#altEditor-modal input#"+inputboxId).parent().append("<div class='help-block'>"+value[0]+"</div>");
+		            });
 				}
 			});
 		}
@@ -194,6 +230,8 @@
 			$.ajax({
 				type: 'POST',
 				url: '{!! url('datatable1/update') !!}' + '/' + id,
+				// contentType: 'application/json',
+				// dataType: 'json',
 				data: {
 					_token: $("[name='_token']").val(),
 					o_no: o_no,
@@ -204,14 +242,29 @@
 					email: $.trim($('#altEditor-modal #Email').val())
 				},
 				success: function(result) {
+					$('#altEditor-modal .help-block').remove();
+					$("#altEditor-modal .modal-body .alert").remove();
+					$("#altEditor-modal .modal-body").append('<div class="alert alert-success" role="alert"><strong>Success!</strong> This record has been updated.</div>');
 
 					if (result == 'success') {
 						myTable.ajax.reload();
-					} else if(result == 'field empty') {
-						$("#altEditor-modal div.alert").attr('class', 'alert alert-warning').text('You should enter fields correctly.');
 					} else {
 						alert('Update Error!');
 					}
+				},
+				error: function(jqXhr, json, errorThrown) {
+					$('#altEditor-modal .help-block').remove();
+					$("#altEditor-modal .modal-body .alert").remove();
+					$("#altEditor-modal .modal-body").append('<div class="alert alert-warning" role="alert"><strong>Warning!</strong> You should enter fields correctly.</div>');
+
+					var errors = jqXhr.responseJSON;
+		            $.each( errors, function( key, value ) {
+		            	var inputboxId = key.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+						    return letter.toUpperCase();
+						});
+
+		                $("#altEditor-modal input#"+inputboxId).parent().append("<div class='help-block'>"+value[0]+"</div>");
+		            });
 				}
 			});
 		}

@@ -51,9 +51,15 @@ class Datatable1Controller extends Controller
         $age = $request->input('age');
         $email = $request->input('email');
 
-        if ($name == '' && $sex == '' && $age == '' && $email == '') {
-            echo "field empty"; exit;
-        }
+        $this->validate($request, [
+            'name' => 'required|max:255|min:1',
+            'sex' => 'required|max:6|min:1',
+            'age' => 'required|max:2|min:2',
+            'email' => 'required|email'
+        ],[
+            /*'name.required'=>'You should enter name',
+            'email.required'=>'You should enter email',*/
+        ]);
 
         //store
         $user = new Datatable1Model();
@@ -109,9 +115,16 @@ class Datatable1Controller extends Controller
         $email = $request->input('email');
         $disporder = $request->input('no');
 
-        if ($name == '' && $sex == '' && $age == '' && $email == '' && $disporder == '') {
-            echo 'field empty'; exit;
-        }
+        $this->validate($request, [
+            'name' => 'required|max:255|min:1',
+            'sex' => 'required|max:6|min:1',
+            'age' => 'required|max:2|min:2',
+            'email' => 'required|email',
+            'no' => 'required'
+        ],[
+            /*'name.required'=>'You should enter name',
+            'email.required'=>'You should enter email',*/
+        ]);
 
         //update
         $user = Datatable1Model::find($id);
@@ -126,13 +139,13 @@ class Datatable1Controller extends Controller
 
         //process disporder
         $o_disporder = $request->input('o_no');
-        $sql = "";
-        if ($o_disporder > $disporder)
+        if ($o_disporder > $disporder) {
             $sql = "UPDATE users SET disporder=disporder+1 WHERE id != {$id} AND disporder >= {$disporder} AND disporder < {$o_disporder}";
-        else if ($o_disporder < $disporder)
+            DB::statement($sql);
+        } else if ($o_disporder < $disporder){
             $sql = "UPDATE users SET disporder=disporder-1 WHERE id != {$id} AND disporder <= {$disporder} AND disporder > {$o_disporder}";
-        
-        DB::statement($sql);
+            DB::statement($sql);
+        }        
 
         echo 'success'; exit;
     }
