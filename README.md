@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 We would like to implement a table for displaying information from our application. Our current recommendation is https://editor.datatables.net/
-=======
-We would like to implement a table for displaying information from our application. Our current recommendation is https://editor.datatables.net 
->>>>>>> fb53d76d23cef1afcdbd126294310d47b470916a
 
 • Client read/write via an AJAX API
 • Laravel 5.3 and MySQL backend
@@ -14,7 +10,6 @@ We would like to implement a table for displaying information from our applicati
 • Edit button that allows all the fields to be modified (can be modal or redirect to a new page)
 • Implement Excel, PDF, Print and CSV buttons (listed in sequence of priority for code implementation)
 • Use a bootstrap base style sheet
-<<<<<<< HEAD
 
 1) install xampp-win32-5.6.24-0-VC11-installer.exe to C:\
 2) C:\xampp\htdocs\laravel-datatables
@@ -34,5 +29,3 @@ listen 9000
 4) XAMPP restart
 5) laravel-test.sql
 6) localhost:9000/datatable1
-=======
->>>>>>> fb53d76d23cef1afcdbd126294310d47b470916a
