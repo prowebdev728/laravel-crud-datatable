@@ -1,27 +1,31 @@
-# Laravel PHP Framework
+We would like to implement a table for displaying information from our application. Our current recommendation is https://editor.datatables.net/
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+• Client read/write via an AJAX API
+• Laravel 5.3 and MySQL backend
+• Search based on data in the row
+• Ability to sort by column
+• Change sequence of rows
+• Save changes to the database
+• Add Button that loads modal form and adds a row to the datatable
+• Edit button that allows all the fields to be modified (can be modal or redirect to a new page)
+• Implement Excel, PDF, Print and CSV buttons (listed in sequence of priority for code implementation)
+• Use a bootstrap base style sheet
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+1) install xampp-win32-5.6.24-0-VC11-installer.exe to C:\
+2) C:\xampp\htdocs\laravel-datatables
+3) C:\xampp\apache\conf\extra\httpd-vhosts.conf
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+listen 9000
+<VirtualHost *:9000>
+    DocumentRoot "C:\xampp\htdocs\laravel-datatables\public"
+    ServerAdmin laravel.dev
+    <Directory "C:\xampp\htdocs\laravel-datatables">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
 
-## Official Documentation
-
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+4) XAMPP restart
+5) laravel-test.sql
+6) localhost:9000/datatable1
