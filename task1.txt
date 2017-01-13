@@ -13,9 +13,6 @@ We would like to implement a table for displaying information from our applicati
 
 Can provide sample data or can be implemented with an example data set and we will migrate it to the multiple pages once the Proof of Concept is successfully completed.
 
-Please spend 10 hours on this, then we will review your progress and determine if we would like to continue.
-
-
 
 1) install xampp-win32-5.6.24-0-VC11-installer.exe to C:\
 2) C:\xampp\htdocs\laravel-datatables
