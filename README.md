@@ -1,4 +1,4 @@
-We would like to implement a table for displaying information from our application. Our current recommendation is https://editor.datatables.net/
+• grid: https://editor.datatables.net/
 
 • Client read/write via an AJAX API
 
