@@ -47,6 +47,7 @@ Route::post('/user/register', array('uses'=>'UserRegistration@postRegister'));
 Route::group(['prefix' => 'datatable1'], function () {
 	Route::get('/', 'Datatable1Controller@index');
 	Route::get('/get', 'Datatable1Controller@getDatas');
+	Route::get('/get/{id}', 'Datatable1Controller@show'); // modify
 	Route::post('/store', 'Datatable1Controller@store');
 	Route::post('/update/{id}', 'Datatable1Controller@update');
 	Route::post('/destroy/{id}', 'Datatable1Controller@destroy');
