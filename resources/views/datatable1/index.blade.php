@@ -289,7 +289,6 @@
 				}
 			});
 		}
-
 	</script>
 </head>
 <body>
