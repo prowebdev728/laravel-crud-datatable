@@ -292,6 +292,7 @@
 	</script>
 </head>
 <body>
+
 	{{csrf_field()}}
 	<div class="container">
 		<br>
