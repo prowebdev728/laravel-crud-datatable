@@ -30,7 +30,6 @@
 		table.dataTable tbody>tr>.selected {
 			background-color: #A2D3F6;
 		}
-
 		/*::-webkit-input-placeholder {
 		    color: #999!important;
 		}
